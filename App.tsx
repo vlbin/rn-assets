@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   Alert,
   LayoutAnimation,
+  LayoutAnimationConfig,
   Platform,
   Pressable,
   StyleSheet,
@@ -14,13 +15,13 @@ import {
 import { Modal } from "./src/packages/modal/Modal";
 import Swipeable from "./src/packages/swipeale/Swipeable";
 
-const layoutAnimConfig = {
+const layoutAnimConfig: LayoutAnimationConfig = {
   duration: 300,
   update: {
     type: LayoutAnimation.Types.easeInEaseOut,
   },
   delete: {
-    duration: 100,
+    duration: 300,
     type: LayoutAnimation.Types.easeInEaseOut,
     property: LayoutAnimation.Properties.opacity,
   },
@@ -61,10 +62,7 @@ export default function App() {
       {items.map((item, i) => (
         <Swipeable
           onLeftSwipe={() => {
-            setItems((prev) => {
-              return prev.filter((x) => x !== item);
-            });
-
+            setItems((prev) => [...prev.filter((x) => x !== item)]);
             LayoutAnimation.configureNext(layoutAnimConfig);
           }}
           key={item}
